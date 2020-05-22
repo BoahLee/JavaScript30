@@ -67,7 +67,7 @@
         };
         items.push(item);
         createList(items, itemsList);
-        localStorage.setItem("items", JSON.stringify(item));
+        localStorage.setItem("items", JSON.stringify(items));
         this.reset();
       }
 
@@ -87,7 +87,13 @@
       }
 
       function toggleDone(e) {
-        console.log(e);
+        if (!e.target.matches("input")) return;
+        const el = e.target;
+        const index = el.dataset.index;
+        items[index].done = !items[index].done;
+        localStorage.setItem("items", JSON.stringify(items));
+        createList(items, itemsList);
+        console.log(el.dataset.index);
       }
 
       addItems.addEventListener("submit", addItem);
